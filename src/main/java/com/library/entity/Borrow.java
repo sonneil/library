@@ -1,6 +1,7 @@
 package com.library.entity;
 
 import java.sql.Date;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +17,6 @@ public class Borrow {
 	private Long id;
 	@OneToOne
 	private Copy copy;
-	@ManyToOne
-	private Reader reader;
 	private Date startDate;
 	private Date endDate;
 	
@@ -46,11 +45,20 @@ public class Borrow {
 	public void setCopy(Copy copy) {
 		this.copy = copy;
 	}
-	public Reader getReader() {
-		return reader;
+	@Override
+	public int hashCode() {
+		return Objects.hash(copy, endDate, id, startDate);
 	}
-	public void setReader(Reader reader) {
-		this.reader = reader;
-	}
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Borrow other = (Borrow) obj;
+		return Objects.equals(copy, other.copy) && Objects.equals(endDate, other.endDate)
+				&& Objects.equals(id, other.id) && Objects.equals(startDate, other.startDate);
+	}	
 }

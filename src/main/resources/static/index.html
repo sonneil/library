@@ -1,0 +1,57 @@
+<html>
+	<head>
+		<script src="js/jquery/jquery-3.6.0.min.js" type="text/javascript"></script>
+		<script src="js/main.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<label for="book_table">Libros</label>
+		<table id="book_table">
+			<thead>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		
+		
+		<label for="new_book_table">Nuevo Libro</label>
+		<table id="new_book_table">
+			<thead>
+				<tr>
+					<th>Titulo</th>
+					<th>Genero</th>
+					<th>Editorial</th>
+					<th>Año</th>
+					<th>#Copias</th>
+					<th>Accion</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input type="text" id="bookTitle" value="LOTR" /></td>
+					<td><input type="text" id="bookType" value="CF" /></td>
+					<td><input type="text" id="bookEditorial" value="T" /></td>
+					<td><input type="text" id="bookYear" value="2003" /></td>
+					<td><input type="text" id="bookCopies"value="1" /></td>
+					<td><input type="button" onclick="createBook()" value="Agregar" /></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<label for="reader_table">Lectores</label>
+		<table id="reader_table">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Telefono</th>
+					<th>Dirección</th>
+					<th>Copias Prestadas</th>
+					<th>Penalizado?</th>
+					<th>Prestar</th>
+					<th>Devolver</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</body>
+</html>

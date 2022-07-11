@@ -28,10 +28,17 @@ public class ReaderResource {
 	@Autowired
 	private ReaderService service;
 	
-	@PostMapping(value = "/{readerId}/copy", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/{readerId}/borrow", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Book> borrow(@PathVariable("readerId") Long readerId, @RequestBody Copy copy) {
 		LocalDate today = LocalDate.now();
 		service.borrow(readerId, copy, today);
+		return ResponseEntity.ok().build();
+	}
+	
+	@PostMapping(value = "/{readerId}/borrow/back", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Book> borrowBack(@PathVariable("readerId") Long readerId, @RequestBody Copy copy) {
+		LocalDate today = LocalDate.now();
+		service.borrowBack(readerId, copy, today);
 		return ResponseEntity.ok().build();
 	}
 	

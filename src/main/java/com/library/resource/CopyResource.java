@@ -7,46 +7,42 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.library.entity.Book;
-import com.library.service.BookService;
+import com.library.entity.Copy;
+import com.library.service.CopyService;
 
 @RestController
-@RequestMapping(value = "/book")
-public class BookResource {
+@RequestMapping(value = "/copy")
+public class CopyResource {
 	
 	@Autowired
-	private BookService service;
+	private CopyService service;
 	
 	@GetMapping
-	public List<Book> get() {
-		return service.getBooks();
+	public List<Copy> get() {
+		return service.getCopys();
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Book> post(@RequestParam("copies") Integer copies, @RequestBody Book book) {
-		service.create(book);
+	public ResponseEntity<Copy> post(@RequestBody Copy Copy) {
+		service.create(Copy);
 		return ResponseEntity.ok().build();
 	}
 	
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Book> put(@RequestBody Book book) {
-		service.update(book);
+	public ResponseEntity<Copy> put(@RequestBody Copy Copy) {
+		service.update(Copy);
 		return ResponseEntity.ok().build();
 	}
 	
-	@DeleteMapping(value="{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Book> delete(@PathVariable("id") Long id) {
-		Book book = new Book();
-		book.setId(id);
-		service.delete(book);
+	@DeleteMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Copy> delete(@RequestBody Copy Copy) {
+		service.delete(Copy);
 		return ResponseEntity.ok().build();
 	}
 	
