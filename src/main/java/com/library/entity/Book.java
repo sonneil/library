@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -19,6 +20,8 @@ public class Book {
 	private Integer year;
 	@OneToMany
 	private List<Copy> copies;
+	@ManyToOne
+	private Author author;
 	
 
 	public Long getId() {
@@ -68,4 +71,13 @@ public class Book {
 	public void setCopies(List<Copy> copies) {
 		this.copies = copies;
 	}
+
+	public Author getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(Author author) {
+		this.author = author;
+	}
+	
 }

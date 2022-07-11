@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Copy {
@@ -15,6 +16,8 @@ public class Copy {
 	private Long status;
 	private Date borrowDate;
 	private Date borrowEndDate;
+	@ManyToOne
+	private Reader reader;
 	
 	public Long getId() {
 		return id;
@@ -40,4 +43,11 @@ public class Copy {
 	public void setBorrowEndDate(Date borrowEndDate) {
 		this.borrowEndDate = borrowEndDate;
 	}
+	public Reader getReader() {
+		return reader;
+	}
+	public void setReader(Reader reader) {
+		this.reader = reader;
+	}
+	
 }

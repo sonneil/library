@@ -1,11 +1,13 @@
 package com.library.entity;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Author {
@@ -15,6 +17,8 @@ public class Author {
 	private String name;
 	private String nationality;
 	private Date birthDate;
+	@OneToMany
+	private List<Book> books;
 	
 	
 	public Long getId() {
