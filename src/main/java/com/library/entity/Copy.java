@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Copy {
@@ -14,10 +15,8 @@ public class Copy {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Long status;
-	private Date borrowDate;
-	private Date borrowEndDate;
-	@ManyToOne
-	private Reader reader;
+	@OneToOne
+	private Borrow borrow;
 	
 	public Long getId() {
 		return id;
@@ -31,23 +30,10 @@ public class Copy {
 	public void setStatus(Long status) {
 		this.status = status;
 	}
-	public Date getBorrowDate() {
-		return borrowDate;
+	public Borrow getBorrow() {
+		return borrow;
 	}
-	public void setBorrowDate(Date borrowDate) {
-		this.borrowDate = borrowDate;
+	public void setBorrow(Borrow borrow) {
+		this.borrow = borrow;
 	}
-	public Date getBorrowEndDate() {
-		return borrowEndDate;
-	}
-	public void setBorrowEndDate(Date borrowEndDate) {
-		this.borrowEndDate = borrowEndDate;
-	}
-	public Reader getReader() {
-		return reader;
-	}
-	public void setReader(Reader reader) {
-		this.reader = reader;
-	}
-	
 }

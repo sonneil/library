@@ -18,11 +18,10 @@ public class Reader {
 	private String phone;
 	private String address;
 	@OneToMany
-	private List<Copy> copies;
+	private List<Borrow> borrows;
 	
 	private Date startPenalty;
 	private Date endPenalty;
-	
 	public Long getId() {
 		return id;
 	}
@@ -47,11 +46,11 @@ public class Reader {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public List<Copy> getCopies() {
-		return copies;
+	public List<Borrow> getBorrows() {
+		return borrows;
 	}
-	public void setCopies(List<Copy> copies) {
-		this.copies = copies;
+	public void setBorrows(List<Borrow> borrows) {
+		this.borrows = borrows;
 	}
 	public Date getStartPenalty() {
 		return startPenalty;
