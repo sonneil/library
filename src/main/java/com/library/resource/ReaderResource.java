@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.library.entity.Book;
 import com.library.entity.Copy;
 import com.library.entity.Reader;
+import com.library.exception.BorrowLimitException;
+import com.library.exception.PenaltyException;
 import com.library.service.BookService;
 import com.library.service.ReaderService;
 
@@ -29,9 +31,14 @@ public class ReaderResource {
 	private ReaderService service;
 	
 	@PostMapping(value = "/{readerId}/borrow", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Book> borrow(@PathVariable("readerId") Long readerId, @RequestBody Copy copy) {
+	public ResponseEntity<String> borrow(@PathVariable("readerId") Long readerId, @RequestBody Copy copy) {
 		LocalDate today = LocalDate.now();
-		service.borrow(readerId, copy, today);
+		try {
+			service.borrow(readerId, copy, today);
+		} catch (BorrowLimitException | PenaltyException e) {
+			String errorMessage = e.getMessage();
+			return ResponseEntity.internalServerError().body(errorMessage);
+		}
 		return ResponseEntity.ok().build();
 	}
 	

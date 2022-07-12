@@ -32,7 +32,7 @@ public class BookResource {
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Book> post(@RequestParam("copies") Integer copies, @RequestBody Book book) {
-		service.create(book);
+		service.create(book, copies);
 		return ResponseEntity.ok().build();
 	}
 	

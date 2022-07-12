@@ -23,12 +23,14 @@ $(document).ready(function() {
 function fillBooksTable(books) {
 	for (var i=0;i<books.length;i++) {
 		var book = books[i];
+		var copiesIds = book.copies.filter(e => e.status == 1).map(e => e.id);	
 		$("#book_table tbody").append(
 			'<tr>'+
 			'<td><input type="text" value="'+book.title+'" />' +
 			'</td><td><input type="text" value="'+book.type+'" />'+
 			'</td><td><input type="text" value="'+book.editorial+'" />'+
 			'</td><td><input type="text" value="'+book.year+'" />'+
+			'</td><td><input type="text" disabled value="'+copiesIds+'" />'+
 			'</td><td><input type="button" value="Eliminar" onclick="deleteBook('+book.id+')" /></td>'+
 			'</tr>'
 		);
@@ -38,29 +40,13 @@ function fillBooksTable(books) {
 function fillReadersTable(readers) {
 	for (var i=0;i<readers.length;i++) {
 		var reader = readers[i];
-		
-		/*<tr>
-					<td><input type="text" value="LOTR" /></td>
-					<td><input type="text" value="CF" /></td>
-					<td><input type="text" value="T" /></td>
-					<td>4,7,8,9</td>
-					<td>Si</td>
-					<td>
-						<input type="text" value="" />
-						<input type="button" value="Prestar" />
-					</td>
-					<td>
-						<input type="text" value="" />
-						<input type="button" value="Devolver" />
-					</td>
-				</tr>*/
-		
-		
+		var copiesIds = reader.borrows.map(e => e.copy.id);
 		$("#reader_table tbody").append(
 			'<tr>'+
 			'<td><input type="text" value="'+reader.name+'" />' +
 			'</td><td><input type="text" value="'+reader.phone+'" />'+
 			'</td><td><input type="text" value="'+reader.address+'" />'+
+			'</td><td><input type="text" disabled value="'+copiesIds+'" />'+
 			'</td><td><input id="borrow'+reader.id+'" type="text" value="" /><input type="button" value="Prestar" onclick="borrowBook('+reader.id+')" /></td>'+
 			'</td><td><input id="borrowBack'+reader.id+'" type="text" value="" /><input type="button" value="Devolver" onclick="returnBook('+reader.id+')" /></td>'+
 			'</tr>'
@@ -68,7 +54,7 @@ function fillReadersTable(readers) {
 	}
 }
 
-function createBook(id) {
+function createBook() {
 	var book = {
 		"title": $("#bookTitle").val(),
 		"type":  1,
@@ -80,12 +66,11 @@ function createBook(id) {
 	  url: "/book?copies="+$("#bookCopies").val(),
 	  contentType: "application/json",
 	  data: JSON.stringify(book),
- 	  dataType: "json",
 	  type: "POST"
-	}).done(function(data) {
-	  	alert("Se ha create el libro: " + id);
-		document. location. reload();
-	});
+	}).done(function() {
+		alert("Se ha creado el libro: " + book.title);
+		document.location.reload();
+    });
 }
 
 function deleteBook(id) {
@@ -101,34 +86,35 @@ function deleteBook(id) {
 
 function borrowBook(readerId) {
 	var copy = {
-		"id":$("borrow"+readerId).val()
+		"id":$("#borrow"+readerId).val()
 	}
 	
 	$.ajax({
 	  url: "/reader/"+readerId+"/borrow",
 	  contentType: "application/json",
 	  data: JSON.stringify(copy),
- 	  dataType: "json",
-	  type: "POST"
-	}).success(function(data) {
-	  	alert("Se ha devuelto la copia: " + copy.id);
-		document. location. reload();
+	  type: "POST",
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.responseText);
+      }
+	}).done(function(data) {
+	  	alert("Se ha prestado la copia: " + copy.id);
+		document.location.reload();
 	});
 }
 
 function returnBook(readerId) {
 	var copy = {
-		"id":$("borrowBack"+readerId).val()
+		"id":$("#borrowBack"+readerId).val()
 	}
 	
 	$.ajax({
 	  url: "/reader/"+readerId+"/borrow/back",
 	  contentType: "application/json",
 	  data: JSON.stringify(copy),
- 	  dataType: "json",
 	  type: "POST"
 	}).done(function(data) {
 	  	alert("Se ha devuelto la copia: " + copy.id);
-		document. location. reload();
+		document.location.reload();
 	});
 }

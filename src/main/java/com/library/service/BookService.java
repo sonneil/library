@@ -1,5 +1,6 @@
 package com.library.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,14 @@ public class BookService {
 		return repository.findAll();
 	}
 
-	public void create(Book book) {
-		/*for (Copy c : book.getCopies()) {
-			c.setId(copyRepository.save(c).getId());
-		}*/
+	public void create(Book book, Integer copies) {
+		List<Copy> newCopies = new ArrayList<Copy>(); 
+		for (int i=0; i < copies; i++) {
+			Copy c = new Copy();
+			c.setStatus(1L);
+			newCopies.add(c);
+		}
+		book.setCopies(newCopies);
 		repository.save(book);
 	}
 

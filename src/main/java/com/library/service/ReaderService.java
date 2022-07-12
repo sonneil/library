@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import com.library.entity.Borrow;
 import com.library.entity.Copy;
 import com.library.entity.Reader;
+import com.library.exception.BorrowLimitException;
+import com.library.exception.PenaltyException;
 import com.library.repository.BorrowRepository;
 import com.library.repository.CopyRepository;
 import com.library.repository.ReaderRepository;
@@ -34,7 +36,7 @@ public class ReaderService {
 	@Autowired
 	private CopyRepository copyRepository;
 	
-	public void borrow(Long readerId, Copy copy, LocalDate today) {
+	public void borrow(Long readerId, Copy copy, LocalDate today) throws BorrowLimitException, PenaltyException {
 		Copy c = copyRepository.findById(copy.getId()).get();
 		if (Objects.isNull(c) || c.getStatus() != IN_LIBRARY_STATUS) return;
 		
@@ -44,8 +46,12 @@ public class ReaderService {
 		Integer borrowsAmount = reader.getBorrows().size();
 		Boolean hasPenalty = hasPenalty(reader, today);
 		
-		if (borrowsAmount >= 3) return;
-		if (hasPenalty) return;
+		if (borrowsAmount >= 3) {
+			throw new BorrowLimitException("El usuario ya sacó 3 libros, deve devolver uno para continuar");
+		}
+		if (hasPenalty) {
+			throw new PenaltyException("Usuario penalizado");
+		}
 		
 		Borrow borrow = new Borrow();
 		copy.setStatus(BORROWED_STATUS);
@@ -115,7 +121,7 @@ public class ReaderService {
 	public void borrowBack(Long readerId, Copy copy, LocalDate today) {
 		Copy c = copyRepository.findById(copy.getId()).get();
 		
-		if (Objects.isNull(c) || !Arrays.asList(BORROWED_STATUS, PENALTY_STATUS, IN_LIBRARY_STATUS).contains(c.getStatus())) {
+		if (Objects.isNull(c) || !Arrays.asList(BORROWED_STATUS, PENALTY_STATUS).contains(c.getStatus())) {
 			return;
 		}
 		
@@ -137,7 +143,7 @@ public class ReaderService {
 		List<Borrow> newBorrows = new ArrayList<>();
 		for (Borrow b : borrows) {
 			if (!b.getId().equals(borrow.getId())) {
-				newBorrows.add(borrow);
+				newBorrows.add(b);
 			}
 		}
 		return newBorrows;
