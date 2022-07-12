@@ -150,9 +150,10 @@ img {
 
 .boton{
     background-color: var(--color4);
+    height: 2.5rem;
     color: var(--claroA);
     padding: 1rem 3rem;
-    margin-top: 3rem;
+    margin-bottom: 3rem;
     font-size: 2rem;
     text-decoration: none;
     text-transform: uppercase;

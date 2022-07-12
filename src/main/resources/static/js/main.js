@@ -23,13 +23,15 @@ $(document).ready(function() {
 function fillBooksTable(books) {
 	for (var i=0;i<books.length;i++) {
 		var book = books[i];
-		var copiesIds = book.copies.filter(e => e.status == 1).map(e => e.id);	
+		var copiesIds = book.copies.filter(e => e.status == 1).map(e => e.id);
+		var typeDesc = mapType(book.type);
+		
 		$("#book_table tbody").append(
 			'<tr>'+
-			'<td><input type="text" value="'+book.title+'" />' +
-			'</td><td><input type="text" value="'+book.type+'" />'+
-			'</td><td><input type="text" value="'+book.editorial+'" />'+
-			'</td><td><input type="text" value="'+book.year+'" />'+
+			'<td><input type="text" disabled value="'+book.title+'" />' +
+			'</td><td><input type="text" disabled value="'+typeDesc+'" />'+
+			'</td><td><input type="text" disabled value="'+book.editorial+'" />'+
+			'</td><td><input type="text" disabled value="'+book.year+'" />'+
 			'</td><td><input type="text" disabled value="'+copiesIds+'" />'+
 			'</td><td><input type="button" value="Eliminar" onclick="deleteBook('+book.id+')" /></td>'+
 			'</tr>'
@@ -57,7 +59,7 @@ function fillReadersTable(readers) {
 function createBook() {
 	var book = {
 		"title": $("#bookTitle").val(),
-		"type":  1,
+		"type":  $("#bookType").val(),
 		"editorial":  $("#bookEditorial").val(),
 		"year":  $("#bookYear").val()
 	};
@@ -117,4 +119,18 @@ function returnBook(readerId) {
 	  	alert("Se ha devuelto la copia: " + copy.id);
 		document.location.reload();
 	});
+}
+
+function mapType(typeId){
+	switch(typeId){
+		case 1:
+		 return "Novela";
+		case 2:
+		 return "Teatro";
+		case 3:
+		 return "Poesia";
+		case 4:
+		 return "Ensayo";
+	
+	}
 }

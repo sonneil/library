@@ -35,7 +35,7 @@
 	
 	
 	
-		<label for="book_table">Libros</label>
+		<label class="boton" for="book_table">Listado de Libros</label>
 		<table id="book_table">
 			<thead>
 			</thead>
@@ -44,11 +44,11 @@
 		</table>
 		
 		
-		<label for="new_book_table">Nuevo Libro</label>
+		<label class="boton" for="new_book_table">Nuevo Libro</label>
 		<table id="new_book_table">
 			<thead>
-				<tr class="boton">
-					<th class="boton">Titulo</th>
+				<tr>
+					<th>Titulo</th>
 					<th>Genero</th>
 					<th>Editorial</th>
 					<th>Año</th>
@@ -59,7 +59,12 @@
 			<tbody>
 				<tr>
 					<td><input type="text" id="bookTitle" value="LOTR" /></td>
-					<td><input type="text" id="bookType" value="CF" /></td>
+					<td><select name="bookType" id="bookType">
+					  <option value="1">Novela</option>
+					  <option value="2">Teatro</option>
+					  <option value="3">Poesia</option>
+					  <option value="4">Ensayo</option>
+					</select></td>
 					<td><input type="text" id="bookEditorial" value="T" /></td>
 					<td><input type="text" id="bookYear" value="2003" /></td>
 					<td><input type="text" id="bookCopies"value="1" /></td>
@@ -68,7 +73,7 @@
 			</tbody>
 		</table>
 		
-		<label for="reader_table">Lectores</label>
+		<label class="boton" for="reader_table">Lectores</label>
 		<table id="reader_table">
 			<thead>
 				<tr>
