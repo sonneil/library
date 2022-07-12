@@ -1,9 +1,40 @@
 <html>
+<html lang="en">
 	<head>
+		<meta charset="UTF-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="js/jquery/jquery-3.6.0.min.js" type="text/javascript"></script>
 		<script src="js/main.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="css/normalize.css">
+   	 	<link rel="stylesheet" href="css/styles.css">
+	    <link rel="preconnect" href="https://fonts.googleapis.com">
+	    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans:wght@400;700&
+	    display=swap" rel="stylesheet">
+	    <title>VQ Lib</title>
 	</head>
+	
 	<body>
+	
+	
+	<header class="header">
+        <div class="contenedor">
+            <div class="barra">
+                <a class="logo" href="index.html">
+                    <h1 class="logo__nombre no-margin centrar-texto">VQ<span class="logo__bold">Lib</span></h1>
+                </a>
+
+                <nav class="navegacion">
+                    <a href="administrador.html" class="navegacion__enlace">Administrador</a>
+                    <a href="lector.html" class="navegacion__enlace">Lector</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+	
+	
+	
 		<label for="book_table">Libros</label>
 		<table id="book_table">
 			<thead>
@@ -16,11 +47,11 @@
 		<label for="new_book_table">Nuevo Libro</label>
 		<table id="new_book_table">
 			<thead>
-				<tr>
-					<th>Titulo</th>
+				<tr class="boton">
+					<th class="boton">Titulo</th>
 					<th>Genero</th>
 					<th>Editorial</th>
-					<th>Año</th>
+					<th>AÃ±o</th>
 					<th>#Copias</th>
 					<th>Accion</th>
 				</tr>
@@ -43,7 +74,7 @@
 				<tr>
 					<th>Nombre</th>
 					<th>Telefono</th>
-					<th>Dirección</th>
+					<th>DirecciÃ³n</th>
 					<th>Copias Prestadas</th>
 					<th>Penalizado?</th>
 					<th>Prestar</th>
@@ -53,5 +84,24 @@
 			<tbody>
 			</tbody>
 		</table>
+		
+		
+		
+	<footer class="footer">
+        <div class="contenedor">
+            <div class="barra">
+                <a class="logo" href="index.html">
+                    <h1 class="logo__nombre no-margin centrar-texto">VQ<span class="logo__bold">Lib</span></h1>
+                </a>
+
+                <nav class="navegacion">
+                    <a href="nosotros.html" class="navegacion__enlace">Nosotros</a>
+                    <a href="contacto.html" class="navegacion__enlace">Contacto</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+		
+		
 	</body>
 </html>
